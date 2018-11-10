@@ -1,3 +1,6 @@
+// Add import at the top
+//import reviewForm from './review-form';
+
 let restaurant;
 var map;
 
@@ -94,7 +97,7 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-fillReviewsHTML = (reviews = self.restaurant.reviews) => {
+var fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h2');
   title.innerHTML = 'Reviews';
@@ -104,13 +107,19 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
     const noReviews = document.createElement('p');
     noReviews.innerHTML = 'No reviews yet!';
     container.appendChild(noReviews);
-    return;
-  }
-  const ul = document.getElementById('reviews-list');
-  reviews.forEach(review => {
-    ul.appendChild(createReviewHTML(review));
-  });
-  container.appendChild(ul);
+  } else {
+		const ul = document.getElementById('reviews-list');
+	  reviews.forEach(review => {
+	    ul.appendChild(createReviewHTML(review));
+  	});
+		container.appendChild(ul);
+	}
+	const h3 = document.createElement('h3');
+	h3.innerHTML = "Leave a Review";
+	container.appendChild(h3);
+	const id = getParameterByName('id');
+	container.appendChild(reviewForm(id));
+	console.log ('did it load the form?');
 }
 
 /**
@@ -162,4 +171,32 @@ getParameterByName = (name, url) => {
   if (!results[2])
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+///from reviewForm
+// src/js/restaurant_info.js
+
+// Refactor fillReviewsHTML method, so it appends our form
+var fillReviewsHTML = (reviews = self.restaurant.reviews) => {
+  const container = document.getElementById('reviews-container');
+  const title = document.createElement('h2');
+  title.innerHTML = 'Reviews';
+  container.appendChild(title);
+
+  if (!reviews) {
+    const noReviews = document.createElement('p');
+    noReviews.innerHTML = 'No reviews yet!';
+    container.appendChild(noReviews);
+  } else {
+    const ul = document.getElementById('reviews-list');
+    reviews.forEach(review => {
+      ul.appendChild(createReviewHTML(review));
+    });
+    container.appendChild(ul);
+  }
+
+  const h3 = document.createElement('h3');
+  h3.innerHTML = "Leave a Review";
+  container.appendChild(h3);
+  const id = getParameterByName('id');
+  container.appendChild(reviewForm(id));
 }
