@@ -254,8 +254,8 @@ static fetchReviewsByRestaurantId(restaurant_id){
       return db.transaction('reviews')
       .objectStore('reviews').getAll();
     }).then (allReviews => console.log (allReviews));
-      console.log(`${networkError}`);
-      return null; //return null to handle error ,as though there are no reviews.
+      return (`${networkError}`);
+      //return allReviews; //return null to handle error ,as though there are no reviews.
   });
 }
 
