@@ -178,7 +178,7 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.map);
     google.maps.event.addListener(marker, 'click', () => {
       window.location.href = marker.url
-    });
+    }), {passive: true};
     self.markers.push(marker);
   });
 }

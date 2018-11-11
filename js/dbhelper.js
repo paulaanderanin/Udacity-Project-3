@@ -29,22 +29,6 @@
   }
 });//end dbPromise
 
-//adding to database
-/*
-dbPromise.then(db => {
-  const tx = db.transaction('reviews', 'readwrite');
-  tx.objectStore('reviews').put({
-    id: 123456,
-    data: {foo: "bar"}
-  });
-  return tx.complete;
-})
-*/
-
-
-
-
-
 class DBHelper {
 	/**
    * Database URL.
