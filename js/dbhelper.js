@@ -1,10 +1,7 @@
 /**
  * Common database helper functions.
  */
- /*
- var dbPromise = idb.open('restdb', 1, function(upgradeDb){
- 	var store = upgradeDb.createObjectStore('restaurants', {keyPath: 'id'});
- });*/
+
 
  var dbPromise = idb.open('restdb', 2, function(upgradeDb) {
   switch (upgradeDb.oldVersion) {
@@ -209,6 +206,27 @@ static altTag(restaurant){
 		);
 		return marker;
 	}
+
+////GOOGLE STATIC
+
+static getStaticAllRestaurantsMapImage(restaurants) {
+   let loc = {
+     lat: 40.722216,
+     lng: -73.987501
+   };
+   // Create static map image for initial display
+   let mapURL = `http://maps.googleapis.com/maps/api/staticmap?center=${
+   loc.lat},${loc.lng}&zoom=12&size=${
+   document.documentElement.clientWidth}x400&markers=color:red`;
+   restaurants.forEach(r => {
+     mapURL += `|${r.latlng.lat},${r.latlng.lng}`;
+   });
+   mapURL += "&key=AIzaSyDpMBZUHqaUaHOdTf10Fk-brZBH8TuzNys";
+
+   return mapURL;
+ }
+
+
   /**
   * REVIEWS
   */
