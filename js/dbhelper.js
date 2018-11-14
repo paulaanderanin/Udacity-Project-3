@@ -242,9 +242,9 @@ static fetchReviewsByRestaurantId(restaurant_id){
   .then(reviews => {
     dbPromise.then(db => {
       //stores results
-      var tx = db.transaction('reviews', 'readwrite');
-      var store = tx.objectStore('reviews');
-      reviews.forEach(review => {
+        var tx = db.transaction('reviews', 'readwrite');
+        var store = tx.objectStore('reviews');
+        reviews.forEach(review => {
         store.put(review);
       })
     //return response;
@@ -423,6 +423,7 @@ function handleSubmit(e) {
   p = document.createElement('p');
   const addButton = document.createElement('button');
   addButton.setAttribute('type', 'submit');
+  addButton.setAttribute('id', 'submitbtn')
   addButton.setAttribute('aria-label', 'Add Review');
   addButton.classList.add('add-review');
   addButton.innerHTML = "<span>+</span>";
