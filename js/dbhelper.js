@@ -3,7 +3,7 @@
  */
 
 
- var dbPromise = idb.open('restdb', 2, function(upgradeDb) {
+ var dbPromise = idb.open('restdb', 3, function(upgradeDb) {
   switch (upgradeDb.oldVersion) {
     case 0:
       // a placeholder case so that the switch block will
@@ -21,8 +21,11 @@
     case 4:
       var store = upgradeDb.transaction.objectStore('reviews');
       store.createIndex('review', 'review', {unique:true});
-      //upgradeDb.createObjectStore('reviews', {keyPath: 'id'})
-
+    case 4:
+    upgradeDb.createObjectStore('favorites', {keyPath: 'id'})
+    case 5:
+    var store = upgradeDb.transaction.objectStore('restaurants');
+    store.createIndex('is_favorite', 'is_favorite', {unique: true});
   }
 });//end dbPromise
 
@@ -39,6 +42,13 @@ class DBHelper {
 		 const port = 1337; // Change this to your server port
 		return `http://localhost:${port}/reviews/`;
 	}
+  /*
+  static get API_FAVORITE() {
+     const port = 1337; // Change this to your server port
+    return `http://localhost:${port}/restaurants/${restaurant_id}`;
+  }  */
+
+
 	/**
    * Fetch all restaurants.
    */
@@ -193,6 +203,11 @@ class DBHelper {
 static altTag(restaurant){
 		return (`${restaurant.name}`);
 	}
+
+  ///*** favorites
+  static favoriteF(restaurant){
+    return (`${restaurant.is_favorite}`);
+  }
 	/**
    * Map marker for a restaurant.
    */
@@ -227,6 +242,27 @@ static getStaticAllRestaurantsMapImage(restaurants) {
  }
 
 
+/** FAVORITE FETCH
+**/
+
+static fetchFavorite(restaurant_id){
+  return fetch(`${DBHelper.DATABASE_URL}`)
+  .then(function(response){
+    if (!response.ok) return Promise.reject("favorites could not be fetched from network");
+    return response.json();
+  })
+  .then(favorite => {
+    dbPromise.then(db => {
+      var fav = db.transaction('favorites', 'readwrite');
+      var store = fav.objectStore('favorites');
+      favorite.forEach(favorite => {
+        store.put (favorite);
+      })
+    })
+  })
+}
+
+
   /**
   * REVIEWS
   */
@@ -242,14 +278,12 @@ static fetchReviewsByRestaurantId(restaurant_id){
   .then(reviews => {
     dbPromise.then(db => {
       //stores results
-      var tx = db.transaction('reviews', 'readwrite');
-      var store = tx.objectStore('reviews');
-      reviews.forEach(review => {
+        var tx = db.transaction('reviews', 'readwrite');
+        var store = tx.objectStore('reviews');
+        reviews.forEach(review => {
         store.put(review);
       })
-    //return response;
     });
-    //callback(null, reviews);
     return reviews;
   }).catch(networkError => {
     dbPromise.then(db => {
@@ -423,6 +457,7 @@ function handleSubmit(e) {
   p = document.createElement('p');
   const addButton = document.createElement('button');
   addButton.setAttribute('type', 'submit');
+  addButton.setAttribute('id', 'submitbtn')
   addButton.setAttribute('aria-label', 'Add Review');
   addButton.classList.add('add-review');
   addButton.innerHTML = "<span>+</span>";

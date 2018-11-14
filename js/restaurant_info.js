@@ -61,17 +61,22 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img'
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  image.setAttribute("alt", restaurant.name);
+  image.setAttribute("alt",  'Picture of ' + restaurant.name);
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
+
 
   // fill operating hours
   if (restaurant.operating_hours) {
     fillRestaurantHoursHTML();
   }
+	// fill fillFavorite
+	DBHelper.fetchFavorite(restaurant.id)
+	.then(fillFavoriteHTML);
   // fill reviews
 	DBHelper.fetchReviewsByRestaurantId(restaurant.id)
 	.then(fillReviewsHTML);
+	//
 }
 
 /**
@@ -92,6 +97,22 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 
     hours.appendChild(row);
   }
+}
+
+// create all fill favorite HTML
+var fillFavoriteHTML = (favorite = self.restaurant.is_favorite) => {
+
+  if (!favorite) {
+ 		console.log('not favorite');
+  const heart = document.createElement('h3');
+	heart.classList.add('fas fa-heart');
+
+
+} else {
+	console.log('favorite');
+	const heart = document.createElement('h3');
+	heart.classList.add('fas fa-heart');
+	}
 }
 
 /**

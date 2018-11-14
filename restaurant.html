@@ -24,8 +24,8 @@
       <h1><a href="/">Restaurant Reviews</a></h1>
     </nav>
     <!-- Beginning breadcrumb -->
-    <nav>
-      <ul id="breadcrumb" aria-label="breadcrumb" >
+    <nav id="breadcrumb" aria-label="Breadcrumb" role="navigation">
+      <ul >
         <li><a href="/">Home</a></li>
       </ul>
     </nav>
@@ -41,6 +41,8 @@
     <!-- Beginning restaurant -->
     <section id="restaurant-container" onchange="updateRestaurants()" aria-labelledby="restaurant-name">
       <h2 id="restaurant-name" aria-describedby="restaurant-name"></h2>
+      <!-- favorite -->
+      <p id="favorite" aria-label="favorite this restaurant"></p>
       <img id="restaurant-img">
       <p id="restaurant-cuisine" arial-label="food category"></p>
       <address><p id="restaurant-address"></p></adress>
@@ -62,7 +64,7 @@
 
   <!-- Beginning footer -->
   <footer id="footer">
-    Copyright (c) 2017 <a href="/" role="link" aria-label="home page link"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+    Copyright (c) 2018 <a href="/" role="link" aria-label="home page link"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
   </footer>
   <!-- End footer -->
 
