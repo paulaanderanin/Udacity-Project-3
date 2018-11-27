@@ -6,6 +6,8 @@
   src: local('roboto'), url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fBBc4AMP6lQ.woff2) format('woff2');
 }
 
+#test {position:fixed; bottom:30px; height:300px; z-index:10; background:blue; width:100%;color:white;}
+
 body,td,th,p{
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 10pt;

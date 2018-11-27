@@ -193,6 +193,10 @@ class DBHelper {
 static altTag(restaurant){
 		return (`${restaurant.name}`);
 	}
+
+  static reviewURL(review) {
+    return (`${restaurant.id}`);
+	}
 	/**
    * Map marker for a restaurant.
    */
@@ -255,7 +259,9 @@ static fetchReviewsByRestaurantId(restaurant_id){
     dbPromise.then(db => {
       return db.transaction('reviews')
       .objectStore('reviews').getAll();
-    }).then (allReviews => console.log (allReviews));
+    }).then (allReviews => console.log (allReviews)
+
+      );
       return (`${networkError}`);
       //return allReviews; //return null to handle error ,as though there are no reviews.
   });
@@ -433,3 +439,50 @@ function handleSubmit(e) {
 
   return form;
 };
+
+///new shit
+
+
+
+
+  function databaseTodosGet(callback) {
+    var transaction = db.transaction(['reviews'], 'readonly');
+    var store = transaction.objectStore('reviews');
+
+    // Get everything in the store
+    var keyRange = IDBKeyRange.lowerBound(0);
+    var cursorRequest = store.openCursor(keyRange);
+
+    // This fires once per row in the store. So, for simplicity,
+    // collect the data in an array (data), and pass it in the
+    // callback in one go.
+    var data = [];
+    cursorRequest.onsuccess = function(e) {
+      var result = e.target.result;
+
+      // If there's data, add it to array
+      if (result) {
+        data.push(result.value);
+        result.continue();
+
+      // Reach the end of the data
+      } else {
+        callback(data);
+      }
+    };
+  }
+
+//NEEWWWWWW
+
+dbPromise.then(function(DB) {
+  var tx = DB.transaction('reviews', 'readwrite');
+  var store = tx.objectStore('reviews');
+  return store.getAll();
+
+}).then(function(items) {
+  var items;
+  console.log('Items by name:', items);
+    test.innerHTML = "My new text! " + JSON.stringify (items);
+
+
+});
