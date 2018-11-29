@@ -303,6 +303,27 @@ nav h1 a {
 .skip-link:focus {
 	background:#000;
 }
+/* buttons for favorite */
+.favorite-container {
+  width: 1190px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.favorite-active {
+  background: #42B549;
+  color: white;
+}
+
+.favorite-active:hover {
+  background: #42B549;
+  color: white;
+}
+
+button {
+  outline: 0; /* only to remove the ugly blue outline in this demo */
+}
+/* ======================  Media Queries ====================== */
 
 @media screen and (min-width:1024px){
 		#restaurants-list li {

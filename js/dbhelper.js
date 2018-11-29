@@ -290,6 +290,7 @@ static fetchReviewsByRestaurantId(restaurant_id){
 }
 
 
+
 /// extra
 /**
  * Returns a li element with review data so it can be appended to

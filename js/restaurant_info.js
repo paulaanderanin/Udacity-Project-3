@@ -72,7 +72,27 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   // fill reviews
 	DBHelper.fetchReviewsByRestaurantId(restaurant.id)
 	.then(fillReviewsHTML);
-}
+	}
+
+/** Favorite
+*/
+$('#favoriteBtn').on("click", function() {
+  $('.favorite-active').not(this).removeClass('favorite-active');
+  $(this).toggleClass('favorite-active');
+	if ($(this).hasClass('favorite-active')){
+		$('p.testbtn').text('favorite');
+		console.log('favorite')
+
+	}
+})
+// http://localhost:1337/restaurants/?is_favorite=true
+
+// function storeFavorites(favorites){
+// 	const url = ``
+// }
+
+$('.testbtn').text('change');
+
 
 /**
  * Create restaurant operating hours HTML table and add it to the webpage.
