@@ -239,30 +239,51 @@ static fetchReviewsByRestaurantId(restaurant_id){
   .then(function(response){
     //returns results as json for storing
     //extra
-    if (!response.ok) return Promise.reject("reviews could not be fetched from network");
+    if (response.ok) {
+      response.json().then(reviews => {
+        dbPromise.then(db => {
+          //stores results
+          var tx = db.transaction('reviews', 'readwrite');
+          var store = tx.objectStore('reviews');
+          reviews.forEach(review => {
+            store.put(review);
+          })
+        //return response;
+        });
+      });
+    }
+    // return Promise.reject("reviews could not be fetched from network");
 
     return response.json();
   })
-  .then(reviews => {
-    dbPromise.then(db => {
-      //stores results
-      var tx = db.transaction('reviews', 'readwrite');
-      var store = tx.objectStore('reviews');
-      reviews.forEach(review => {
-        store.put(review);
-      })
-    //return response;
-    });
-    //callback(null, reviews);
-    return reviews;
-  }).catch(networkError => {
-    dbPromise.then(db => {
+  // .then(reviews => {
+  //   dbPromise.then(db => {
+  //     //stores results
+  //     var tx = db.transaction('reviews', 'readwrite');
+  //     var store = tx.objectStore('reviews');
+  //     reviews.forEach(review => {
+  //       store.put(review);
+  //     })
+  //   //return response;
+  //   });
+  //   //callback(null, reviews);
+  //   return reviews;
+  // })
+  .catch(networkError => {
+    // let reviews = null;
+    return dbPromise.then(db => {
       return db.transaction('reviews')
       .objectStore('reviews').getAll();
-    }).then (allReviews => console.log (allReviews)
+    }).then (allReviews => {
+        // reviews = allReviews;
+        console.log('test');
+        console.log (allReviews);
+        return allReviews;
+    }
 
       );
-      return (`${networkError}`);
+      // return (`${networkError}`);
+      return reviews;
       //return allReviews; //return null to handle error ,as though there are no reviews.
   });
 }
@@ -358,6 +379,26 @@ function handleSubmit(e) {
 
   console.log(review);
 
+  // var offlineTS = new Date();
+
+  /*
+  window.addEventListener('online', () => {
+    dbPromise.then(db => {
+      //stores results
+      var tx = db.transaction('reviews', 'readwrite');
+      var store = tx.objectStore('reviews');
+      store.forEach(review => {
+        if(review.createdAt > offlineTS) {
+          postReview(review);
+        }
+        // store.put(review);
+      })
+    //return response;
+    });
+  });  */
+
+
+
   const url = `${DBHelper.API_URL}`;
   const POST = {
     method: 'POST',
@@ -377,6 +418,16 @@ function handleSubmit(e) {
     reviewList.appendChild(review);
     // clear form
     clearForm();
+  })
+  .catch(error => {
+    console.log('adding review offlline', review);
+    return dbPromise.then(db => {
+      //stores results
+      var tx = db.transaction('reviews', 'readwrite');
+      var store = tx.objectStore('reviews');
+      store.put(review);
+    //return response;
+    });
   });
 
 }
@@ -474,15 +525,16 @@ function handleSubmit(e) {
 
 //NEEWWWWWW
 
-dbPromise.then(function(DB) {
-  var tx = DB.transaction('reviews', 'readwrite');
-  var store = tx.objectStore('reviews');
-  return store.getAll();
-
-}).then(function(items) {
-  var items;
-  console.log('Items by name:', items);
-    test.innerHTML = "My new text! " + JSON.stringify (items);
-
-
-});
+// dbPromise.then(function(DB) {
+//   var tx = DB.transaction('reviews', 'readwrite');
+//   var store = tx.objectStore('reviews');
+//   return store.getAll();
+//
+// }).then(function(items) {
+//   var items;
+//   console.log('Items by name:', items);
+//   const reviewContainer = document.getElementById('test');
+//   const reviewTitle = document.createElement('h3');
+//   reviewTitle.innerHTML = "My new text! " + JSON.stringify(items);
+//   // reviewContainer.appendChild(reviewTitle);
+// });
