@@ -364,8 +364,8 @@ function handleSubmit(e) {
   const review = validateAndGetData();
   if (!review) return;
   console.log(review);
-  // var offlineTS = new Date();
-  /*
+  var offlineTS = new Date();
+
   window.addEventListener('online', () => {
     dbPromise.then(db => {
       //stores results
@@ -379,7 +379,7 @@ function handleSubmit(e) {
       })
     //return response;
     });
-  });  */
+  });
 
   const url = `${DBHelper.API_URL}`;
   const POST = {

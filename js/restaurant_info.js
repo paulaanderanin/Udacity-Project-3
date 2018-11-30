@@ -54,10 +54,20 @@ fetchRestaurantFromURL = (callback) => {
 fillRestaurantHTML = (restaurant = self.restaurant) => {
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
-
+	//favorites
+		const favButton = document.getElementById('favoriteBtn');
+		favButton.value = restaurant.is_favorite;
+		console.log(favButton);
+		if (favButton.value === 'true'){
+			$('#favoriteBtn').hasClass('favorite-active');
+			console.log('fav button is active ' + favButton.value )
+		}
+		else {
+			$('.favorite-active').removeClass('favorite-active')
+		}
   const address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
-
+console.log(address)
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img'
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
@@ -65,16 +75,17 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
 
+
+
   // fill operating hours
   if (restaurant.operating_hours) {
     fillRestaurantHoursHTML();
   }
-
-
-
   // fill reviews
 	DBHelper.fetchReviewsByRestaurantId(restaurant.id)
 	.then(fillReviewsHTML);
+
+
 	}
 
 /** Favorite
@@ -169,38 +180,25 @@ console.log(`${DBHelper.DATABASE_URL}${favID}/?is_favorite=true`)
 	  .then(function(response) {
 
 			dbPromise.then(function(db){
-				var title = 'false';
+				var title  =  `true`;
 				var objectStore = db.transaction(['restaurants'], 'readwrite').objectStore('restaurants');
 				console.log('promised');
 				//get to to do Listing
 				var objectStoreTitleRequest = objectStore.get(title);
-
 				objectStoreTitleRequest.onsuccess = function(){
 					var data = objectStoreTitleRequest.result;
-
 				//udpate dataset
 				data.notified = "yes";
-
 				//create anothere request that inserts the item back into the database
 				var updateTitleRequest = objectStore.put(data);
-
 				console.log("the transaction that originted that request is " + updateTitleRequest);
 				//when this new request success, run the displayData()
 				updateTitleRequest.onsuccess = function(){
 					displayData();
 					console.log(updateTitleRequest);
-
 					}
 				}
 			});
-			// dbPromise.then(db => {
-			// 			var tx = db.transaction('restaurants', 'readwrite');
-			// 			var store = tx.objectStore('restaurants', { keyPath: 'is_favorite' });
-			// 			store.put(store);
-			// 			console.log('Success:', JSON.stringify(response));
-			//
-			// 		})
-			// 			 // return tx.complete;
 	  })
 		.catch(function(error) {
 			console.log('error: ', error);
@@ -221,25 +219,20 @@ console.log(`${DBHelper.DATABASE_URL}${favID}/?is_favorite=false`)
 	})
 	  .then(function(res) {
 	    return res.json();
+
 	  })
 	  .then(function(response) {
 			dbPromise.then(function(db){
 				var title = 'true';
 				var objectStore = db.transaction(['restaurants'], 'readwrite').objectStore('restaurants');
-
 				//get to to do Listing
 				var objectStoreTitleRequest = objectStore.get(title);
-
 				objectStoreTitleRequest.onsuccess = function(){
 					var data = objectStoreTitleRequest.result;
-
-
 				//udpate dataset
 				data.notified = "yes";
-
 				//create anothere request that inserts the item back into the database
 				var updateTitleRequest = objectStore.put(data);
-
 				console.log("the transaction that originted that request is " + updateTitleRequest);
 				//when this new request success, run the displayData()
 				updateTitleRequest.onsuccess = function(){
@@ -248,15 +241,7 @@ console.log(`${DBHelper.DATABASE_URL}${favID}/?is_favorite=false`)
 					}
 				}
 			});
-
-			// dbPromise.then(db => {
-			// 			var tx = db.transaction('restaurants', 'readwrite');
-			// 			var store = tx.objectStore('restaurants', { keyPath:'is_favorite'});
-			// 			store.put(store);
-			// 			console.log('Success:', JSON.stringify(response));
-			//
-			// 		})
-			// 			 return response;
+			
 		})
 		.catch(function(error) {
 			console.log('error: ', error);
@@ -265,11 +250,9 @@ console.log(`${DBHelper.DATABASE_URL}${favID}/?is_favorite=false`)
 						return store.put(db);
 					})
 		})
+
+
 }
-
- $('.testbtn').text('change');
-
-
 
 /**
  * Create restaurant operating hours HTML table and add it to the webpage.
@@ -288,6 +271,8 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
     row.appendChild(time);
 
     hours.appendChild(row);
+
+
   }
 }
 

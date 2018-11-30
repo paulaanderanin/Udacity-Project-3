@@ -305,24 +305,38 @@ nav h1 a {
 }
 /* buttons for favorite */
 .favorite-container {
-  width: 1190px;
-  max-width: 100%;
+  width: 85%;
   margin: 0 auto;
+  margin: 0 0 20px;
+  text-align: center;
 }
 
 .favorite-active {
-  background: #42B549;
+  background: red;
   color: white;
 }
 
 .favorite-active:hover {
-  background: #42B549;
-  color: white;
+  /* background: #d66262;
+  color: white; */
 }
 
 button {
+  background: gray;
+  color: white;
+  font-size: 12pt;
+  font-weight: 300;
+  letter-spacing: 10px;
+  margin: 0 80px;
+  padding: 10px;
+  text-align: center;
+  text-transform: uppercase;
+
   outline: 0; /* only to remove the ugly blue outline in this demo */
 }
+
+button.skip-link {background:white; opacity:.7;}
+button.skip-link a {color:red}
 /* ======================  Media Queries ====================== */
 
 @media screen and (min-width:1024px){
