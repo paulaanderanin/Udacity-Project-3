@@ -69,6 +69,9 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   if (restaurant.operating_hours) {
     fillRestaurantHoursHTML();
   }
+
+
+
   // fill reviews
 	DBHelper.fetchReviewsByRestaurantId(restaurant.id)
 	.then(fillReviewsHTML);
@@ -76,22 +79,196 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 
 /** Favorite
 */
+// function displayDataByIndex() {
+//   tableEntry.innerHTML = '';
+//   var transaction = db.transaction(['restaurants'], 'readonly');
+//   var objectStore = transaction.objectStore('restaurants');
+//
+//   var myIndex = objectStore.index('id');
+//   var getKeyRequest = myIndex.getKey('2');
+//   getKeyRequest.onsuccess = function() {
+//     console.log(getKeyRequest.result);
+//   }
+//
+//   myIndex.openCursor().onsuccess = function(event) {
+//     var cursor = event.target.result;
+//     if(cursor) {
+//       var tableRow = document.createElement('tr');
+//       tableRow.innerHTML =   '<td>' + cursor.value.id + '</td>'
+//                            + '<td>' + cursor.value.is_secured + '</td>'
+//       tableEntry.appendChild(tableRow);
+//
+//       cursor.continue();
+//     } else {
+//       console.log('Entries all displayed.');
+//     }
+//   };
+// };
+
+// static checkFav(callback){
+// 		 fetch(DBHelper.DATABASE_URL)
+// 			.then(function(response) {
+// 				return response.json();
+// 			})
+// 			.then(function(status) {
+// 				var transaction = db.transaction(['restaurants'], 'readwrite');
+// 				//report on Success
+// 				transaction.oncomplete = function(e){
+// 					console.log('transaction completed');
+// 				};
+// 				transaction.onerror = function(e){
+// 					console.log('error ' + transaction.error )
+// 				}
+// 				//create an oject store on transaction
+// 				var objectStore = transaction.objectStore('restaurants');
+// 				var favIndex = objectStore.index('is_favorite');
+// 				console.log(favIndex.keyPath);
+//
+//
+// 				///making the request to get record by key from the object store
+// 				var objectStoreRequest = objectStore.get('id');
+//
+// 				objectStoreRequest.onsuccess = function(e){
+// 					console.log('report success of id');
+//
+// 					var myRecord = objectStoreRequest.result;
+// 				}
+// 				console.log(JSON.stringify(status));
+// 			});///then end
+// }
+
 $('#favoriteBtn').on("click", function() {
   $('.favorite-active').not(this).removeClass('favorite-active');
   $(this).toggleClass('favorite-active');
+	var favID = getParameterByName('id');
+
 	if ($(this).hasClass('favorite-active')){
-		$('p.testbtn').text('favorite');
-		console.log('favorite')
-
+		//favorite = self.restaurant.is_favorite == false;
+		console.log('true');
+		submitFavorite(favID);
 	}
-})
-// http://localhost:1337/restaurants/?is_favorite=true
+	else {
+		//favorite = self.restaurant.is_favorite == true;
+		console.log('false');
+		removeFavorite(favID);
+	}
+});
 
-// function storeFavorites(favorites){
-// 	const url = ``
-// }
+//favorites
+function submitFavorite (favID){
+console.log(`${DBHelper.DATABASE_URL}${favID}/?is_favorite=true`)
+	return fetch(`${DBHelper.DATABASE_URL}${favID}/?is_favorite=true`, {
+		credentials: 'include',
+		method: 'POST',
+		headers: {'Content-Type': 'application/json'},
+	})
+	  .then(function(res) {
+	    return res.json();
+			console.log(favID)
+	  })
+	  .then(function(response) {
 
-$('.testbtn').text('change');
+			dbPromise.then(function(db){
+				var title = 'false';
+				var objectStore = db.transaction(['restaurants'], 'readwrite').objectStore('restaurants');
+				console.log('promised');
+				//get to to do Listing
+				var objectStoreTitleRequest = objectStore.get(title);
+
+				objectStoreTitleRequest.onsuccess = function(){
+					var data = objectStoreTitleRequest.result;
+
+				//udpate dataset
+				data.notified = "yes";
+
+				//create anothere request that inserts the item back into the database
+				var updateTitleRequest = objectStore.put(data);
+
+				console.log("the transaction that originted that request is " + updateTitleRequest);
+				//when this new request success, run the displayData()
+				updateTitleRequest.onsuccess = function(){
+					displayData();
+					console.log(updateTitleRequest);
+
+					}
+				}
+			});
+			// dbPromise.then(db => {
+			// 			var tx = db.transaction('restaurants', 'readwrite');
+			// 			var store = tx.objectStore('restaurants', { keyPath: 'is_favorite' });
+			// 			store.put(store);
+			// 			console.log('Success:', JSON.stringify(response));
+			//
+			// 		})
+			// 			 // return tx.complete;
+	  })
+		.catch(function(error) {
+			console.log('error: ', error);
+			dbPromise.then(function(db){
+						var store = db.transaction('restaurants', 'readwrite').objectStore('restaurants', {KeyPath:'is_favorite'});
+						return store.put(db);
+					})
+		})
+}
+
+//favorites
+function removeFavorite (favID){
+console.log(`${DBHelper.DATABASE_URL}${favID}/?is_favorite=false`)
+	return fetch(`${DBHelper.DATABASE_URL}${favID}/?is_favorite=false`, {
+		credentials: 'include',
+		method: 'POST',
+		headers: {'Content-Type': 'application/json'},
+	})
+	  .then(function(res) {
+	    return res.json();
+	  })
+	  .then(function(response) {
+			dbPromise.then(function(db){
+				var title = 'true';
+				var objectStore = db.transaction(['restaurants'], 'readwrite').objectStore('restaurants');
+
+				//get to to do Listing
+				var objectStoreTitleRequest = objectStore.get(title);
+
+				objectStoreTitleRequest.onsuccess = function(){
+					var data = objectStoreTitleRequest.result;
+
+
+				//udpate dataset
+				data.notified = "yes";
+
+				//create anothere request that inserts the item back into the database
+				var updateTitleRequest = objectStore.put(data);
+
+				console.log("the transaction that originted that request is " + updateTitleRequest);
+				//when this new request success, run the displayData()
+				updateTitleRequest.onsuccess = function(){
+					displayData();
+					console.log('promised removed favorite');
+					}
+				}
+			});
+
+			// dbPromise.then(db => {
+			// 			var tx = db.transaction('restaurants', 'readwrite');
+			// 			var store = tx.objectStore('restaurants', { keyPath:'is_favorite'});
+			// 			store.put(store);
+			// 			console.log('Success:', JSON.stringify(response));
+			//
+			// 		})
+			// 			 return response;
+		})
+		.catch(function(error) {
+			console.log('error: ', error);
+			dbPromise.then(function(db){
+						var store = db.transaction('restaurants', 'readwrite').objectStore('restaurants', {KeyPath:'is_favorite'});
+						return store.put(db);
+					})
+		})
+}
+
+ $('.testbtn').text('change');
+
 
 
 /**

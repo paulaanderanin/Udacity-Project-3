@@ -21,8 +21,6 @@
     case 4:
       var store = upgradeDb.transaction.objectStore('reviews');
       store.createIndex('review', 'review', {unique:true});
-      //upgradeDb.createObjectStore('reviews', {keyPath: 'id'})
-
   }
 });//end dbPromise
 
@@ -51,7 +49,8 @@ class DBHelper {
 				dbPromise.then(db => {
 					var tx = db.transaction('restaurants', 'readwrite');
 					var store = tx.objectStore('restaurants');
-					restaurants.forEach(restaurant => {
+
+          restaurants.forEach(restaurant => {
 						store.put(restaurant);
 					})
 					callback(null, restaurants);
@@ -194,9 +193,9 @@ static altTag(restaurant){
 		return (`${restaurant.name}`);
 	}
 
-  static reviewURL(review) {
-    return (`${restaurant.id}`);
-	}
+
+
+
 	/**
    * Map marker for a restaurant.
    */
@@ -256,19 +255,6 @@ static fetchReviewsByRestaurantId(restaurant_id){
 
     return response.json();
   })
-  // .then(reviews => {
-  //   dbPromise.then(db => {
-  //     //stores results
-  //     var tx = db.transaction('reviews', 'readwrite');
-  //     var store = tx.objectStore('reviews');
-  //     reviews.forEach(review => {
-  //       store.put(review);
-  //     })
-  //   //return response;
-  //   });
-  //   //callback(null, reviews);
-  //   return reviews;
-  // })
   .catch(networkError => {
     // let reviews = null;
     return dbPromise.then(db => {
@@ -377,11 +363,8 @@ function handleSubmit(e) {
   window.location.reload();
   const review = validateAndGetData();
   if (!review) return;
-
   console.log(review);
-
   // var offlineTS = new Date();
-
   /*
   window.addEventListener('online', () => {
     dbPromise.then(db => {
@@ -397,8 +380,6 @@ function handleSubmit(e) {
     //return response;
     });
   });  */
-
-
 
   const url = `${DBHelper.API_URL}`;
   const POST = {
@@ -523,19 +504,3 @@ function handleSubmit(e) {
       }
     };
   }
-
-//NEEWWWWWW
-
-// dbPromise.then(function(DB) {
-//   var tx = DB.transaction('reviews', 'readwrite');
-//   var store = tx.objectStore('reviews');
-//   return store.getAll();
-//
-// }).then(function(items) {
-//   var items;
-//   console.log('Items by name:', items);
-//   const reviewContainer = document.getElementById('test');
-//   const reviewTitle = document.createElement('h3');
-//   reviewTitle.innerHTML = "My new text! " + JSON.stringify(items);
-//   // reviewContainer.appendChild(reviewTitle);
-// });
