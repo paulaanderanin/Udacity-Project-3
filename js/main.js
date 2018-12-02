@@ -241,3 +241,23 @@ const addMarkersToMap = (restaurants = self.restaurants) => {
     self.markers.push(marker);
   });
 }
+
+///reviews
+
+// window.addEventListener('online', () => {
+//   var offlineTS = new Date();
+//
+//   console.log('#### online #####');
+//   dbPromise.then(db => {
+//     //stores results
+//     var tx = db.transaction('reviews', 'readwrite');
+//     var store = tx.objectStore('reviews');
+//     store.forEach(review => {
+//       if(review.createdAt > offlineTS) {
+//         postReview(review);
+//       }
+//       // store.put(review);
+//     })
+//   //return response;
+//   });
+// });

@@ -244,6 +244,7 @@ static fetchReviewsByRestaurantId(restaurant_id){
           //stores results
           var tx = db.transaction('reviews', 'readwrite');
           var store = tx.objectStore('reviews');
+
           reviews.forEach(review => {
             store.put(review);
           })
@@ -261,9 +262,6 @@ static fetchReviewsByRestaurantId(restaurant_id){
       return db.transaction('reviews')
       .objectStore('reviews').getAll();
     }).then (allReviews => {
-        // reviews = allReviews;
-        console.log('test');
-        console.log (allReviews);
         return allReviews;
     }
 
@@ -364,22 +362,6 @@ function handleSubmit(e) {
   const review = validateAndGetData();
   if (!review) return;
   console.log(review);
-  var offlineTS = new Date();
-
-  window.addEventListener('online', () => {
-    dbPromise.then(db => {
-      //stores results
-      var tx = db.transaction('reviews', 'readwrite');
-      var store = tx.objectStore('reviews');
-      store.forEach(review => {
-        if(review.createdAt > offlineTS) {
-          postReview(review);
-        }
-        // store.put(review);
-      })
-    //return response;
-    });
-  });
 
   const url = `${DBHelper.API_URL}`;
   const POST = {
@@ -407,8 +389,12 @@ function handleSubmit(e) {
       //stores results
       var tx = db.transaction('reviews', 'readwrite');
       var store = tx.objectStore('reviews');
-      store.put(review);
-    //return response;
+      var id = 0;
+      store.getAll().then(alldata => {
+        alldata.forEach(rev => id = rev.id > id ? rev.id : id);
+        review.id = ++id;
+        store.add(review);
+      })
     });
   });
 
@@ -461,6 +447,7 @@ function handleSubmit(e) {
 
   p = document.createElement('p');
   const addButton = document.createElement('button');
+  addButton.setAttribute('id', 'submitReview');
   addButton.setAttribute('type', 'submit');
   addButton.setAttribute('aria-label', 'Add Review');
   addButton.classList.add('add-review');

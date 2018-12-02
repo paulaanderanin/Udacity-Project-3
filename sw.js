@@ -1,4 +1,4 @@
-var CACHE_NAME = 'cache-v2';
+var CACHE_NAME = 'cache-v4';
 var urlsToCache = [
   '/',
 	'/index.html',
@@ -57,6 +57,24 @@ self.addEventListener('activate', function(event) {
       );
     })
   );
+});
+
+self.addEventListener('sync', function (event) {
+  console.log('executing sync', event);
+  console.log('from service worker', localStorage.getItem('offlineDate'))
+  if (event.tag === 'sync-reviews') {
+    // store.getAll().then(results => {
+      // var reviewsCreatedOffline = results.filter(review => {
+      //   review.createdAt > offlineDate
+      // });
+
+      /*
+        reviewsCreatedOffline.forEach(review => {
+          // POST review to server.
+      });
+      */
+    // });
+  }
 });
 
 self.addEventListener('fetch', function(event) {

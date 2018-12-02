@@ -56,11 +56,8 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   name.innerHTML = restaurant.name;
 	//favorites
 		const favButton = document.getElementById('favoriteBtn');
-		favButton.value = restaurant.is_favorite;
-		console.log(favButton);
-		if (favButton.value === 'true'){
-			$('#favoriteBtn').hasClass('favorite-active');
-			console.log('fav button is active ' + favButton.value )
+		if (restaurant.is_favorite === 'true'){
+			favButton.classList.add('favorite-active');
 		}
 		else {
 			$('.favorite-active').removeClass('favorite-active')
@@ -241,7 +238,7 @@ console.log(`${DBHelper.DATABASE_URL}${favID}/?is_favorite=false`)
 					}
 				}
 			});
-			
+
 		})
 		.catch(function(error) {
 			console.log('error: ', error);

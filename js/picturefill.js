@@ -1,9 +1,3 @@
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -20,30 +14,30 @@
 
   <link crossorigin="anonymous" media="all" integrity="sha512-PkbtxdWDpLChpxtWQ0KbvJoef4XMYPq5pfd/ZmylYZTzXYpCfGwN9d+bsSKcmOJLwTkfjFkfj5wz3poDrhJoSQ==" rel="stylesheet" href="https://assets-cdn.github.com/assets/frameworks-f6e6ce21346c0d2eb22def1e8534afcb.css" />
   <link crossorigin="anonymous" media="all" integrity="sha512-w3V27pZLl5zpYfM8UK0FmtwDo1c/0PRzVQCMD1PZXzDK1Qxqqam535Yfdx8tk8M/w/x/wLPHi7KABBPmMIHM1A==" rel="stylesheet" href="https://assets-cdn.github.com/assets/github-68fd53427a088d5f4ec761de39406a78.css" />
-  
-  
+
+
   <link crossorigin="anonymous" media="all" integrity="sha512-zyxweUSm/NG+juywqcMFSS4HbKjLWCZyEM2JjoCqnQUU6RVrHpHMwH66xreiaeMIRoA6vYuk0hm8S1X42r/YWQ==" rel="stylesheet" href="https://assets-cdn.github.com/assets/site-220df28424b63d1e24f3bd909efebe81.css" />
-  
+
 
   <meta name="viewport" content="width=device-width">
-  
+
   <title>picturefill/picturefill.js at 2.3.1 · scottjehl/picturefill · GitHub</title>
     <meta name="description" content="GitHub is where people build software. More than 28 million people use GitHub to discover, fork, and contribute to over 85 million projects.">
     <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
   <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
   <meta property="fb:app_id" content="1401488693436528">
 
-    
+
     <meta property="og:image" content="https://avatars3.githubusercontent.com/u/214783?s=400&amp;v=4" /><meta property="og:site_name" content="GitHub" /><meta property="og:type" content="object" /><meta property="og:title" content="scottjehl/picturefill" /><meta property="og:url" content="https://github.com/scottjehl/picturefill" /><meta property="og:description" content="picturefill - A responsive image polyfill for &lt;picture&gt;, srcset, sizes, and more" />
 
   <link rel="assets" href="https://assets-cdn.github.com/">
-  
+
   <meta name="pjax-timeout" content="1000">
-  
+
   <meta name="request-id" content="DD7B:52FB:2CCCF90:54AEE84:5B192CCB" data-pjax-transient>
 
 
-  
+
 
   <meta name="selected-link" value="repo_source" data-pjax-transient>
 
@@ -61,7 +55,7 @@
   <meta class="js-ga-set" name="dimension1" content="Logged Out">
 
 
-  
+
 
       <meta name="hostname" content="github.com">
     <meta name="user-login" content="">
@@ -74,7 +68,7 @@
   <meta name="html-safe-nonce" content="e4c8f530a9c0646d891bcdfa0c9bcfc054c97957">
 
   <meta http-equiv="x-pjax-version" content="08318cb5690f33a2e15054bddc4147ac">
-  
+
 
       <link href="https://github.com/scottjehl/picturefill/commits/2.3.1.atom" rel="alternate" title="Recent Commits to picturefill:2.3.1" type="application/atom+xml">
 
@@ -104,15 +98,15 @@
   </head>
 
   <body class="logged-out env-production emoji-size-boost page-blob">
-    
+
 
   <div class="position-relative js-header-wrapper ">
     <a href="#start-of-content" tabindex="1" class="px-2 py-4 bg-blue text-white show-on-focus js-skip-to-content">Skip to content</a>
     <div id="js-pjax-loader-bar" class="pjax-loader-bar"><div class="progress"></div></div>
 
-    
-    
-    
+
+
+
 
 
 
@@ -202,7 +196,7 @@
   <div role="main" class="application-main ">
         <div itemscope itemtype="http://schema.org/SoftwareSourceCode" class="">
     <div id="js-repo-pjax-container" data-pjax-container >
-      
+
 
 
 
@@ -267,7 +261,7 @@
 </h1>
 
     </div>
-    
+
 <nav class="reponav js-repo-nav js-sidenav-container-pjax container"
      itemscope
      itemtype="http://schema.org/BreadcrumbList"
@@ -317,16 +311,16 @@
 <div class="container new-discussion-timeline experiment-repo-nav  ">
   <div class="repository-content ">
 
-    
+
   <a class="d-none js-permalink-shortcut" data-hotkey="y" href="/scottjehl/picturefill/blob/4e6db73fea78124092be5ba424d053a008a92a6b/dist/picturefill.js">Permalink</a>
 
   <!-- blob contrib key: blob_contributors:v21:4af9be9407460f6607385fda913ba2d4 -->
 
   <div class="file-navigation">
-    
+
 <div class="select-menu branch-select-menu js-menu-container js-select-menu float-left">
   <button class=" btn btn-sm select-menu-button js-menu-target css-truncate" data-hotkey="w"
-    
+
     type="button" aria-label="Switch branches or tags" aria-expanded="false" aria-haspopup="true">
       <i>Tag:</i>
       <span class="js-select-button css-truncate-target">2.3.1</span>
@@ -832,7 +826,7 @@
   </div>
 </div>
 
-    
+
 
   <div itemprop="text" class="blob-wrapper data type-javascript">
       <table class="highlight tab-size js-file-line-container" data-tab-size="4">
@@ -3934,7 +3928,7 @@
 
   </div>
 
-      
+
 <div class="footer container-lg px-3" role="contentinfo">
   <div class="position-relative d-flex flex-justify-between pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
     <ul class="list-style-none d-flex flex-wrap ">
@@ -3975,13 +3969,13 @@
   </div>
 
 
-    
+
     <script crossorigin="anonymous" integrity="sha512-rTmClkyJxuWVxD3HuXtPq/5kD0857EfJF77T++HayvDGIYtxo5/ctJc8dYwYj/wSbAU4pD6iSTbLDMs8uNVtlQ==" type="application/javascript" src="https://assets-cdn.github.com/assets/frameworks-10f86fbecbc74b507bd240fe66202501.js"></script>
-    
+
     <script crossorigin="anonymous" async="async" integrity="sha512-VZX5e2PAduVwKFBY5IaJk7Bg7BOI7vzsbneQ+XGdrvg4mXNNu7m1NIKRX7M4eFwjEXS49mZJQraPKwvXmDVzvw==" type="application/javascript" src="https://assets-cdn.github.com/assets/github-5c1954d1915cc1eb4f0d7f0959ad2d35.js"></script>
-    
-    
-    
+
+
+
   <div class="js-stale-session-flash stale-session-flash flash flash-warn flash-banner d-none">
     <svg class="octicon octicon-alert" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/></svg>
     <span class="signed-in-tab-flash">You signed in with another tab or window. <a href="">Reload</a> to refresh your session.</span>
@@ -4009,4 +4003,3 @@
 
   </body>
 </html>
-
